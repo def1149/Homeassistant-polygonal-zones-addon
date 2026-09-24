@@ -19,6 +19,7 @@
  */
 
 const PZ_TRACKER_ENDPOINT = './trackers.json';
+const PZ_TRACKER_REFRESH_MS = 10000;
 
 /* Re-measure at most this often while the user drags a vertex. The maths is
  * cheap, but rebuilding the readout DOM on every mousemove is not. */
@@ -205,6 +206,20 @@ function setup_tracker_overlay(mapInstance) {
 
             ['pz:zoneschanged', 'pm:create', 'pm:remove', 'pm:edit', 'pm:update']
                 .forEach((evt) => mapInstance.on(evt, pz_schedule_measure));
+            setInterval(() => {
+                fetch(PZ_TRACKER_ENDPOINT, { headers: { Accept: 'application/json' } })
+                    .then((r) => (r.ok ? r.json() : null))
+                    .then((body) => {
+                        if (!body || !body.configured) return;
+            
+                        pz_trackers = Array.isArray(body.trackers) ? body.trackers : [];
+                        pz_render_markers();
+                        pz_render_readout();
+                    })
+                    .catch((err) => {
+                        console.warn('Tracker overlay refresh failed:', err);
+                    });
+            }, PZ_TRACKER_REFRESH_MS);
         })
         .catch((err) => {
             // A missing overlay must never break the editor itself.
