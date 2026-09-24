@@ -431,7 +431,14 @@ function setup_editing(map, editableLayers) {
             type: 'Feature',
             properties: {
                 name: name,
-                id: crypto.randomUUID().replace(/-/g, '')
+                id: (
+                    typeof crypto.randomUUID === 'function'
+                        ? crypto.randomUUID().replace(/-/g, '')
+                        : Array.from(
+                            crypto.getRandomValues(new Uint8Array(16)),
+                            b => b.toString(16).padStart(2, '0')
+                          ).join('')
+                )
             }
         };
 
