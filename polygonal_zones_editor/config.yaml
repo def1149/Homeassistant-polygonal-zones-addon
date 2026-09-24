@@ -14,7 +14,7 @@ panel_icon: "mdi:map"
 # Pre-built images published by .github/workflows/release.yml on each
 # v* tag. Supervisor pulls instead of building locally — much faster
 # updates on slow ARM hardware.
-image: "ghcr.io/matthewhobbs/{arch}-addon-polygonal_zones"
+image: "ghcr.io/def1149/{arch}-addon-polygonal_zones"
 
 init: false
 arch:
