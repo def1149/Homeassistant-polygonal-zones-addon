@@ -13,8 +13,9 @@
         {
             id: 'osm',
             label: 'OpenStreetMap',
-            url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             attribution: osmAttrib,
+            referrerPolicy: 'strict-origin-when-cross-origin',
             options: {maxZoom: 18},
             darkAffinity: 'light',
         },
