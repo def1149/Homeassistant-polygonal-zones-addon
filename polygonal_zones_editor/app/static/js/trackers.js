@@ -19,7 +19,7 @@
  */
 
 const PZ_TRACKER_ENDPOINT = './trackers.json';
-const PZ_TRACKER_REFRESH_MS = 10000;
+const PZ_TRACKER_REFRESH_MS = 60000;
 
 /* Re-measure at most this often while the user drags a vertex. The maths is
  * cheap, but rebuilding the readout DOM on every mousemove is not. */
